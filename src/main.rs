@@ -3,10 +3,12 @@ use std::env;
 pub mod day_1;
 pub mod day_2;
 pub mod day_3;
+pub mod day_4;
 
 use day_1::day_one;
 use day_2::day_two;
 use day_3::day_three;
+use day_4::day_four;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -23,6 +25,7 @@ fn main() {
         1 => day_one(),
         2 => day_two(),
         3 => day_three(),
+        4 => day_four(),
         _ => {
             println!("Uh oh!, I haven't written any code for that day yet :(")
         }
