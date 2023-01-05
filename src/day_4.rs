@@ -1,8 +1,7 @@
 use std::fs;
 
 pub fn day_four() {
-    let raw_input = fs::read_to_string("input/4.txt")
-        .expect("Error reading input file");
+    let raw_input = fs::read_to_string("input/4.txt").expect("Error reading input file");
 
     part_one(raw_input.clone());
     part_two(raw_input.clone());
@@ -44,7 +43,7 @@ impl Pair {
 
         let first_half: Vec<&str> = halves[0].split('-').collect();
         let second_half: Vec<&str> = halves[1].split('-').collect();
-        
+
         let first = Range {
             lower: first_half[0].parse::<i32>().unwrap(),
             upper: first_half[1].parse::<i32>().unwrap(),
@@ -53,11 +52,8 @@ impl Pair {
             lower: second_half[0].parse::<i32>().unwrap(),
             upper: second_half[1].parse::<i32>().unwrap(),
         };
-        
-        Pair {
-            first,
-            second,
-        }
+
+        Pair { first, second }
     }
 
     fn one_contains_other(&self) -> bool {
@@ -65,7 +61,9 @@ impl Pair {
     }
 
     fn overlaps(&self) -> bool {
-        self.one_contains_other() || self.first.lower < self.second.lower && self.first.upper >= self.second.lower || self.second.lower < self.first.lower && self.second.upper >= self.first.lower
+        self.one_contains_other()
+            || self.first.lower < self.second.lower && self.first.upper >= self.second.lower
+            || self.second.lower < self.first.lower && self.second.upper >= self.first.lower
     }
 }
 
@@ -83,43 +81,22 @@ impl Range {
 
 #[cfg(test)]
 mod tests {
-    use super::{Range, Pair};
+    use super::{Pair, Range};
 
     #[test]
     fn test_contains() {
-        let small = Range {
-            lower: 1,
-            upper: 3,
-        };
-        let big = Range {
-            lower: 1,
-            upper: 4,
-        };
+        let small = Range { lower: 1, upper: 3 };
+        let big = Range { lower: 1, upper: 4 };
         assert_eq!(big.contains(&small), true);
     }
 
     #[test]
     fn test_overlaps() {
-        let first = Range {
-            lower: 1,
-            upper: 3,
-        };
-        let second = Range {
-            lower: 3,
-            upper: 4,
-        };
-        let good_pair = Pair {
-            first,
-            second,
-        };
-        let bad_first = Range {
-            lower: 2,
-            upper: 4,
-        };
-        let bad_second = Range {
-            lower: 5,
-            upper: 5,
-        };
+        let first = Range { lower: 1, upper: 3 };
+        let second = Range { lower: 3, upper: 4 };
+        let good_pair = Pair { first, second };
+        let bad_first = Range { lower: 2, upper: 4 };
+        let bad_second = Range { lower: 5, upper: 5 };
         let bad_pair = Pair {
             first: bad_first,
             second: bad_second,
@@ -127,5 +104,4 @@ mod tests {
         assert_eq!(good_pair.overlaps(), true, "good pair");
         assert_eq!(bad_pair.overlaps(), false, "bad pair");
     }
-
 }

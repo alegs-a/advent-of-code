@@ -27,8 +27,7 @@ pub fn day_two() {
 fn day_two_part_1() {
     println!("DAY 2 ============");
 
-    let input = fs::read_to_string("input/2.txt")
-        .expect( "Problem reading the input file");
+    let input = fs::read_to_string("input/2.txt").expect("Problem reading the input file");
 
     let mut score = 0;
 
@@ -60,8 +59,7 @@ fn day_two_part_1() {
 }
 
 fn day_two_part_2() {
-    let input = fs::read_to_string("input/2.txt")
-        .expect( "Problem reading the input file");
+    let input = fs::read_to_string("input/2.txt").expect("Problem reading the input file");
 
     let mut score = 0;
 
@@ -117,52 +115,40 @@ fn parse_input_game(input: Option<char>) -> GameResult {
 
 fn play_game(game: Game) -> GameResult {
     match game.your_play {
-        Play::Rock => {
-            match game.opponent_play {
-                Play::Rock => GameResult::Draw,
-                Play::Paper => GameResult::Lose,
-                Play::Scissors => GameResult::Win,
-            }
-        }
-        Play::Paper => {
-            match game.opponent_play {
-                Play::Rock => GameResult::Win,
-                Play::Paper => GameResult::Draw,
-                Play::Scissors => GameResult::Lose,
-            }
-        }
-        Play::Scissors => {
-            match game.opponent_play {
-                Play::Rock => GameResult::Lose,
-                Play::Paper => GameResult::Win,
-                Play::Scissors => GameResult::Draw,
-            }
-        }
+        Play::Rock => match game.opponent_play {
+            Play::Rock => GameResult::Draw,
+            Play::Paper => GameResult::Lose,
+            Play::Scissors => GameResult::Win,
+        },
+        Play::Paper => match game.opponent_play {
+            Play::Rock => GameResult::Win,
+            Play::Paper => GameResult::Draw,
+            Play::Scissors => GameResult::Lose,
+        },
+        Play::Scissors => match game.opponent_play {
+            Play::Rock => GameResult::Lose,
+            Play::Paper => GameResult::Win,
+            Play::Scissors => GameResult::Draw,
+        },
     }
 }
 
 fn play_game_backwards(opponent_play: Play, desired_result: GameResult) -> Play {
     match opponent_play {
-        Play::Rock => {
-            match desired_result {
-                GameResult::Win => Play::Paper,
-                GameResult::Draw => Play::Rock,
-                GameResult::Lose => Play::Scissors,
-            }
-        }
-        Play::Paper => {
-            match desired_result {
-                GameResult::Win => Play::Scissors,
-                GameResult::Draw => Play::Paper,
-                GameResult::Lose => Play::Rock,
-            }
-        }
-        Play::Scissors => {
-            match desired_result {
-                GameResult::Win => Play::Rock,
-                GameResult::Draw => Play::Scissors,
-                GameResult::Lose => Play::Paper,
-            }
-        }
+        Play::Rock => match desired_result {
+            GameResult::Win => Play::Paper,
+            GameResult::Draw => Play::Rock,
+            GameResult::Lose => Play::Scissors,
+        },
+        Play::Paper => match desired_result {
+            GameResult::Win => Play::Scissors,
+            GameResult::Draw => Play::Paper,
+            GameResult::Lose => Play::Rock,
+        },
+        Play::Scissors => match desired_result {
+            GameResult::Win => Play::Rock,
+            GameResult::Draw => Play::Scissors,
+            GameResult::Lose => Play::Paper,
+        },
     }
 }

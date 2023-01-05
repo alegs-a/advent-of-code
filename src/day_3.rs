@@ -1,10 +1,9 @@
-use std::{fs, char};
+use std::{char, fs};
 
 pub fn day_three() {
     println!("DAY 3 ===========");
 
-    let raw_input = fs::read_to_string("input/3.txt")
-        .expect("error reading input file");
+    let raw_input = fs::read_to_string("input/3.txt").expect("error reading input file");
 
     part_one(raw_input.clone());
     part_two(raw_input);
@@ -27,13 +26,17 @@ fn part_one(input: String) {
     println!("PART 1: The total priority is: {score}");
 }
 
-fn part_two( input: String) {
+fn part_two(input: String) {
     let mut score = 0;
 
     let lines: Vec<&str> = input.lines().collect();
     let num_groups: usize = (lines.len() as f64 / 3.0).trunc() as usize;
     for i in 0..num_groups {
-        score += priority(find_duplicate_extended((lines[i*3], lines[i*3+1], lines[i*3+2])));
+        score += priority(find_duplicate_extended((
+            lines[i * 3],
+            lines[i * 3 + 1],
+            lines[i * 3 + 2],
+        )));
     }
     println!("PART 2: The total priority is: {score}");
 }
@@ -44,7 +47,10 @@ fn find_duplicate(slices: (&str, &str)) -> char {
             return character;
         }
     }
-    panic!("Something gone wrong: no match found in pattern {:#?}", slices);
+    panic!(
+        "Something gone wrong: no match found in pattern {:#?}",
+        slices
+    );
 }
 
 fn find_duplicate_extended(strings: (&str, &str, &str)) -> char {
@@ -59,7 +65,10 @@ fn find_duplicate_extended(strings: (&str, &str, &str)) -> char {
             return character;
         }
     }
-    panic!("Uh oh! No matches found in part 2 for the set {:#?}", strings);
+    panic!(
+        "Uh oh! No matches found in part 2 for the set {:#?}",
+        strings
+    );
 }
 
 fn priority(input: char) -> i32 {
