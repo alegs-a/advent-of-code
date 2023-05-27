@@ -9,6 +9,7 @@ pub mod day_6;
 pub mod day_7;
 pub mod day_8;
 pub mod day_9;
+pub mod day_10;
 
 use day_1::day_one;
 use day_2::day_two;
@@ -19,6 +20,7 @@ use day_6::day_six;
 use day_7::day_seven;
 use day_8::day_eight;
 use day_9::day_nine;
+use day_10::day_ten;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -41,6 +43,7 @@ fn main() {
         7 => day_seven(),
         8 => day_eight(),
         9 => day_nine(),
+        10 => day_ten(),
         _ => {
             println!("Uh oh!, I haven't written any code for that day yet :(")
         }
