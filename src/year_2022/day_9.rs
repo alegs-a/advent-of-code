@@ -311,7 +311,7 @@ impl Rope {
 
 #[cfg(test)]
 mod test {
-    use crate::day_9::Coord;
+    use crate::year_2022::day_9::Coord;
 
     use super::*;
 
