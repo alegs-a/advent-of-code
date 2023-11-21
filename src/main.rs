@@ -14,24 +14,22 @@ fn run_part2(file: &str, day: &day::Day) -> std::io::Result<String> {
     Ok((day.part2)(file))
 }
 
-macro_rules! run_year {
-    ($year:ident, $year_num:expr) => {
-        for (i, day) in $year::DAYS.iter().enumerate() {
-            let input_file = format!("input/{}/{}.txt", $year_num, i + 1);
+macro_rules! run_day_in_year {
+    ($year:ident, $year_num:expr, $day:expr) => {
+            let input_file = format!("input/{}/{}.txt", $year_num, $day);
 
-            println!("Day {} part 1: {}", i + 1, run_part1(&input_file, day)?);
-            println!("Day {} part 2: {}", i + 1, run_part2(&input_file, day)?);
-        }
+            let day = $year::DAYS.get(($day-1) as usize).unwrap();
+            println!("Day {} part 1: {}", $day, run_part1(&input_file, day)?);
+            println!("Day {} part 2: {}", $day, run_part2(&input_file, day)?);
     };
 }
 
 fn main() -> std::io::Result<()> {
-    // let year = 2022;
-    // let args = std::env::args().collect::<Vec<String>>();
-    // let day = args.get(1).unwrap().parse::<i32>().unwrap();
+    let year = 2022;
+    let args = std::env::args().collect::<Vec<String>>();
+    let day = args.get(1).unwrap().parse::<i32>().unwrap();
 
-    // let file = read_to_string(format!("input/{}/{}.txt", year, day));
-    run_year!(year_2022, 2022);
+    run_day_in_year!(year_2022, year, day);
 
     Ok(())
 }
