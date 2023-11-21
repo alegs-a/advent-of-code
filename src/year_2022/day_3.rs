@@ -8,6 +8,35 @@ pub fn day_three() {
     part_one(raw_input.clone());
     part_two(raw_input);
 }
+pub fn part_1(input: String) -> String {
+    let mut score = 0;
+
+    for line in input.lines() {
+        let length = line.len();
+        let half_lenth: usize = (length as f64 / 2.0).trunc() as usize;
+        let halves = line.split_at(half_lenth);
+
+        let duplicate = find_duplicate(halves);
+
+        score += priority(duplicate);
+    }
+    score.to_string()
+}
+
+pub fn part_2(input: String) -> String {
+    let mut score = 0;
+
+    let lines: Vec<&str> = input.lines().collect();
+    let num_groups: usize = (lines.len() as f64 / 3.0).trunc() as usize;
+    for i in 0..num_groups {
+        score += priority(find_duplicate_extended((
+            lines[i * 3],
+            lines[i * 3 + 1],
+            lines[i * 3 + 2],
+        )));
+    }
+    score.to_string()
+}
 
 fn part_one(input: String) {
     let mut score = 0;

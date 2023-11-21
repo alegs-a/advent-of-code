@@ -16,7 +16,7 @@ pub fn day_five() {
     let first_8_lines = first_8_lines.into_iter();
     for line in first_8_lines {
         for character in line.chars() {
-            dbg!(character);
+            //dbg!(character);
         }
     }
 
@@ -33,5 +33,8 @@ pub fn day_five() {
     // ];
     // dbg!(pile);
 }
+
+pub fn part_1(input: String) -> String { "".to_string() }
+pub fn part_2(input: String) -> String { "".to_string() }
 
 // fn do_move(qty: i32, from: usize, to: usize) {}

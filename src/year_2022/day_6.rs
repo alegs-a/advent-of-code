@@ -6,6 +6,60 @@ pub fn day_six() {
     part_one(raw_input.clone());
     part_two(raw_input.clone());
 }
+pub fn part_1(raw_input: String) -> String {
+    let mut found = false;
+    let mut count = 0;
+    let mut chars = Vec::new();
+    let input = raw_input.chars().collect::<Vec<char>>();
+
+    while !found {
+        chars.push(input[count]);
+        count += 1;
+
+        if count > 4 {
+            chars.remove(0);
+            // dbg!(&chars);
+            let mut sorted = chars.clone();
+            sorted.sort();
+            if !(sorted[0] == sorted[1] || sorted[1] == sorted[2] || sorted[2] == sorted[3]) {
+                found = true;
+                return count.to_string();
+            }
+        }
+    }
+    unreachable!("No answer found in part 1 of day 6")
+}
+
+pub fn part_2(raw_input: String) -> String {
+    let mut found = false;
+    let mut count = 0;
+    let mut chars = Vec::new();
+    let input = raw_input.chars().collect::<Vec<char>>();
+
+    while !found {
+        chars.push(input[count]);
+        count += 1;
+
+        if count > 14 {
+            chars.remove(0);
+            // dbg!(&chars);
+            let mut sorted = chars.clone();
+            sorted.sort();
+            let mut deduped = chars.clone();
+            deduped.sort();
+            deduped.dedup();
+            // dbg!(&sorted, &deduped);
+            // dbg!(&sorted.len(), &deduped.len());
+
+            if sorted.len() == deduped.len() {
+                //println!("PART 2: {count}");
+                found = true;
+                return count.to_string();
+            }
+        }
+    }
+    panic!("No answer found in part 2");
+}
 
 fn part_one(raw_input: String) {
     let mut found = false;
@@ -19,7 +73,7 @@ fn part_one(raw_input: String) {
 
         if count > 4 {
             chars.remove(0);
-            dbg!(&chars);
+            // dbg!(&chars);
             let mut sorted = chars.clone();
             sorted.sort();
             if !(sorted[0] == sorted[1] || sorted[1] == sorted[2] || sorted[2] == sorted[3]) {
@@ -42,14 +96,14 @@ fn part_two(raw_input: String) -> i32 {
 
         if count > 14 {
             chars.remove(0);
-            dbg!(&chars);
+            // dbg!(&chars);
             let mut sorted = chars.clone();
             sorted.sort();
             let mut deduped = chars.clone();
             deduped.sort();
             deduped.dedup();
-            dbg!(&sorted, &deduped);
-            dbg!(&sorted.len(), &deduped.len());
+            // dbg!(&sorted, &deduped);
+            // dbg!(&sorted.len(), &deduped.len());
 
             if sorted.len() == deduped.len() {
                 println!("PART 2: {count}");

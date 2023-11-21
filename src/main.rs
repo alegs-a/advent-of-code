@@ -1,51 +1,37 @@
-use std::env;
+use std::fs::read_to_string;
 
-pub mod day_1;
-pub mod day_2;
-pub mod day_3;
-pub mod day_4;
-pub mod day_5;
-pub mod day_6;
-pub mod day_7;
-pub mod day_8;
-pub mod day_9;
-pub mod day_10;
+mod day;
+mod year_2022;
 
-use day_1::day_one;
-use day_2::day_two;
-use day_3::day_three;
-use day_4::day_four;
-use day_5::day_five;
-use day_6::day_six;
-use day_7::day_seven;
-use day_8::day_eight;
-use day_9::day_nine;
-use day_10::day_ten;
+// The below is shamelessly stolen from bpaul
+fn run_part1(file: &str, day: &day::Day) -> std::io::Result<String> {
+    let file = read_to_string(file)?;
+    Ok((day.part1)(file))
+}
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    let first_arg = match args.get(1) {
-        Some(val) => val,
-        None => return,
-    };
-    let day: i32 = match first_arg.parse() {
-        Ok(val) => val,
-        _ => return,
-    };
+fn run_part2(file: &str, day: &day::Day) -> std::io::Result<String> {
+    let file = read_to_string(file)?;
+    Ok((day.part2)(file))
+}
 
-    match day {
-        1 => day_one(),
-        2 => day_two(),
-        3 => day_three(),
-        4 => day_four(),
-        5 => day_five(),
-        6 => day_six(),
-        7 => day_seven(),
-        8 => day_eight(),
-        9 => day_nine(),
-        10 => day_ten(),
-        _ => {
-            println!("Uh oh!, I haven't written any code for that day yet :(")
+macro_rules! run_year {
+    ($year:ident, $year_num:expr) => {
+        for (i, day) in $year::DAYS.iter().enumerate() {
+            let input_file = format!("input/{}/{}.txt", $year_num, i + 1);
+
+            println!("Day {} part 1: {}", i + 1, run_part1(&input_file, day)?);
+            println!("Day {} part 2: {}", i + 1, run_part2(&input_file, day)?);
         }
-    }
+    };
+}
+
+fn main() -> std::io::Result<()> {
+    // let year = 2022;
+    // let args = std::env::args().collect::<Vec<String>>();
+    // let day = args.get(1).unwrap().parse::<i32>().unwrap();
+
+    // let file = read_to_string(format!("input/{}/{}.txt", year, day));
+    run_year!(year_2022, 2022);
+
+    Ok(())
 }

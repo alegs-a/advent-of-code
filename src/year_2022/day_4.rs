@@ -6,6 +6,29 @@ pub fn day_four() {
     part_one(raw_input.clone());
     part_two(raw_input.clone());
 }
+pub fn part_1(input: String) -> String {
+    let mut count = 0;
+
+    for line in input.lines() {
+        let pair = Pair::new(line);
+        if pair.one_contains_other() {
+            count += 1;
+        }
+    }
+    count.to_string()
+}
+
+pub fn part_2(input: String) -> String {
+    let mut count = 0;
+
+    for line in input.lines() {
+        let pair = Pair::new(line);
+        if pair.overlaps() {
+            count += 1;
+        }
+    }
+    count.to_string()
+}
 
 fn part_one(input: String) {
     let mut count = 0;

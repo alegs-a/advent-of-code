@@ -7,6 +7,101 @@ pub fn day_nine() {
     println!("Part 1: {}", part_one(raw_input.clone()));
     println!("Part 2: {}", part_two(raw_input));
 }
+pub fn part_1(raw_input: String) -> String {
+    let mut tail_covered: Vec<Coord> = vec![Coord::new_custom(0, 0)];
+
+    let mut rope = Rope::new();
+
+    for line in raw_input.lines() {
+        let mut words = line.split_whitespace();
+
+        let move_direction = parse_move(words.next().unwrap());
+        let move_number = words.next().unwrap().parse::<i32>().unwrap();
+
+        for _ in 0..move_number {
+            rope = move_rope(rope, move_direction);
+            if !tail_covered.contains(&rope.tail) {
+                tail_covered.push(rope.tail);
+            }
+            // visualise_visited(&tail_covered);
+        }
+
+    }
+    tail_covered.len().to_string()
+}
+
+pub fn part_2(raw_input: String) -> String {
+    let mut big_rope = vec![Coord::new(); 10];
+    let mut tail_covered: Vec<Coord> = Vec::new();
+
+    for line in raw_input.lines() {
+        let mut words = line.split_whitespace();
+
+        let move_direction = parse_move(words.next().unwrap());
+        let move_number = words
+            .next()
+            .unwrap()
+            .parse::<i32>()
+            .unwrap();
+
+        for i in 0..move_number {
+
+            big_rope[0] = match move_direction {
+                Direction::Left => Coord::new_custom(big_rope[0].x - 1, big_rope[0].y),
+                Direction::Right => Coord::new_custom(big_rope[0].x + 1, big_rope[0].y),
+                Direction::Up => Coord::new_custom(big_rope[0].x, big_rope[0].y + 1),
+                Direction::Down => Coord::new_custom(big_rope[0].x, big_rope[0].y - 1),
+            };
+            //dbg!(big_rope[0]);
+
+            for i in 1..big_rope.len() {
+                // x stuff
+                let x_delta = big_rope[i-1].x - big_rope[i].x;
+                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                // dbg!(move_direction, move_number, i, &big_rope, x_delta, y_delta);
+                assert!(x_delta <= 2);
+                assert!(x_delta >= -2);
+                assert!(y_delta <= 2);
+                assert!(y_delta >= -2);
+
+                if x_delta == 1 && y_delta == 2 || x_delta == 2 && y_delta == 1 || x_delta == 2 && y_delta == 2 {
+                    big_rope[i].x += 1;
+                    big_rope[i].y += 1;
+                } else if x_delta == -1 && y_delta == 2 || x_delta == -2 && y_delta == 1 || x_delta == -2 && y_delta == 2 {
+                    big_rope[i].x -= 1;
+                    big_rope[i].y += 1;
+                } else if x_delta == 1 && y_delta == -2 || x_delta == 2 && y_delta == -1 || x_delta == 2 && y_delta == -2 {
+                    big_rope[i].x += 1;
+                    big_rope[i].y -= 1;
+                } else if x_delta == -1 && y_delta == -2 || x_delta == -2 && y_delta == -1 || x_delta == -2 && y_delta == -2 {
+                    big_rope[i].x -= 1;
+                    big_rope[i].y -= 1;
+                } else if x_delta == 2 {
+                    big_rope[i].x += 1;
+                } else if x_delta == -2 {
+                    big_rope[i].x -= 1;
+                } else if y_delta == 2 {
+                    big_rope[i].y += 1;
+                } else if y_delta == -2 {
+                    big_rope[i].y -= 1;
+                }
+                let x_delta = big_rope[i-1].x - big_rope[i].x;
+                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                assert!(-1 <= x_delta);
+                assert!(x_delta <= 1);
+                assert!(-1 <= y_delta);
+                assert!(y_delta <= 1);
+            }
+
+
+            if !tail_covered.contains(big_rope.last().unwrap()) {
+                tail_covered.push(*big_rope.last().unwrap());
+            }
+        }
+    }
+    // dbg!(big_rope);
+    tail_covered.len().to_string()
+}
 
 fn part_one(raw_input: String) -> i32 {
     let mut tail_covered: Vec<Coord> = vec![Coord::new_custom(0, 0)];
@@ -100,7 +195,7 @@ fn part_two(raw_input: String) -> i32 {
             }
         }
     }
-    dbg!(big_rope);
+    // dbg!(big_rope);
     tail_covered.len() as i32
 }
 

@@ -9,6 +9,33 @@ pub fn day_seven() {
     println!("PART 2: {}", part_two(raw_input.clone()));
 }
 
+pub fn part_1(raw_input: String) -> String {
+    let scores = generate_scores(raw_input);
+
+    let mut total = 0;
+    for (_path, size) in scores {
+        if size <= 100000 {
+            total += size;
+        }
+    }
+    total.to_string()
+}
+
+pub fn part_2(raw_input: String) -> String {
+    let scores = generate_scores(raw_input);
+
+    let used = scores.get("/").unwrap();
+    let free = 70_000_000 - used;
+    let required = 30_000_000 - free;
+    let mut smallest_possible = free;
+
+    for (_path, size) in scores {
+        if size > required && size < smallest_possible {
+            smallest_possible = size;
+        }
+    }
+    smallest_possible.to_string()
+}
 fn part_one(raw_input: String) -> i32 {
     let scores = generate_scores(raw_input);
 
