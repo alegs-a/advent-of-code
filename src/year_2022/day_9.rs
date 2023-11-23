@@ -40,7 +40,7 @@ pub fn part_2(raw_input: String) -> String {
         let move_direction = parse_move(words.next().unwrap());
         let move_number = words.next().unwrap().parse::<i32>().unwrap();
 
-        for i in 0..move_number {
+        for _ in 0..move_number {
             big_rope[0] = match move_direction {
                 Direction::Left => Coord::new_custom(big_rope[0].x - 1, big_rope[0].y),
                 Direction::Right => Coord::new_custom(big_rope[0].x + 1, big_rope[0].y),
@@ -141,7 +141,7 @@ fn part_two(raw_input: String) -> i32 {
         let move_direction = parse_move(words.next().unwrap());
         let move_number = words.next().unwrap().parse::<i32>().unwrap();
 
-        for i in 0..move_number {
+        for _ in 0..move_number {
             big_rope[0] = match move_direction {
                 Direction::Left => Coord::new_custom(big_rope[0].x - 1, big_rope[0].y),
                 Direction::Right => Coord::new_custom(big_rope[0].x + 1, big_rope[0].y),

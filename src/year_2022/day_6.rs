@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(unused)]
 use std::fs;
 
 pub fn day_six() {

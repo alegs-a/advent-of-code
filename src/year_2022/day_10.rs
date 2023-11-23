@@ -1,3 +1,4 @@
+#![allow(unused)]
 use std::fs;
 
 pub fn day_ten() {
