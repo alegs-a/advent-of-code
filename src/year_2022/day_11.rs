@@ -45,9 +45,6 @@ pub fn part_2(input: String) -> String {
             let items: Vec<u128> = monkeys[idx].items.drain(..).collect();
             let monkey = monkeys[idx].clone();
             for old_item in items {
-                if old_item == 0 {
-                    panic!("we got a zero :(")
-                }
                 monkeys[idx].inspections += 1;
                 let mut new_item = match &monkey.operation {
                     Operation::Mul(value) => old_item * value.get_value(old_item),
@@ -159,10 +156,8 @@ impl Value {
 impl Test {
     fn test(&self, value: u128) -> usize {
         if value % self.divisible == 0 {
-            println!("we true");
             return self.true_recipient;
         } else {
-            println!("we false");
             return self.false_recipient;
         }
     }
