@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::{char, fs};
 
 pub fn day_three() {

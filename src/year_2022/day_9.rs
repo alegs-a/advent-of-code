@@ -1,8 +1,9 @@
+#![allow(dead_code)]
+
 use std::fs;
 
 pub fn day_nine() {
-    let raw_input = fs::read_to_string("input/9.txt")
-        .expect("Failed to read input file");
+    let raw_input = fs::read_to_string("input/9.txt").expect("Failed to read input file");
 
     println!("Part 1: {}", part_one(raw_input.clone()));
     println!("Part 2: {}", part_two(raw_input));
@@ -25,7 +26,6 @@ pub fn part_1(raw_input: String) -> String {
             }
             // visualise_visited(&tail_covered);
         }
-
     }
     tail_covered.len().to_string()
 }
@@ -38,14 +38,9 @@ pub fn part_2(raw_input: String) -> String {
         let mut words = line.split_whitespace();
 
         let move_direction = parse_move(words.next().unwrap());
-        let move_number = words
-            .next()
-            .unwrap()
-            .parse::<i32>()
-            .unwrap();
+        let move_number = words.next().unwrap().parse::<i32>().unwrap();
 
         for i in 0..move_number {
-
             big_rope[0] = match move_direction {
                 Direction::Left => Coord::new_custom(big_rope[0].x - 1, big_rope[0].y),
                 Direction::Right => Coord::new_custom(big_rope[0].x + 1, big_rope[0].y),
@@ -56,24 +51,36 @@ pub fn part_2(raw_input: String) -> String {
 
             for i in 1..big_rope.len() {
                 // x stuff
-                let x_delta = big_rope[i-1].x - big_rope[i].x;
-                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                let x_delta = big_rope[i - 1].x - big_rope[i].x;
+                let y_delta = big_rope[i - 1].y - big_rope[i].y;
                 // dbg!(move_direction, move_number, i, &big_rope, x_delta, y_delta);
                 assert!(x_delta <= 2);
                 assert!(x_delta >= -2);
                 assert!(y_delta <= 2);
                 assert!(y_delta >= -2);
 
-                if x_delta == 1 && y_delta == 2 || x_delta == 2 && y_delta == 1 || x_delta == 2 && y_delta == 2 {
+                if x_delta == 1 && y_delta == 2
+                    || x_delta == 2 && y_delta == 1
+                    || x_delta == 2 && y_delta == 2
+                {
                     big_rope[i].x += 1;
                     big_rope[i].y += 1;
-                } else if x_delta == -1 && y_delta == 2 || x_delta == -2 && y_delta == 1 || x_delta == -2 && y_delta == 2 {
+                } else if x_delta == -1 && y_delta == 2
+                    || x_delta == -2 && y_delta == 1
+                    || x_delta == -2 && y_delta == 2
+                {
                     big_rope[i].x -= 1;
                     big_rope[i].y += 1;
-                } else if x_delta == 1 && y_delta == -2 || x_delta == 2 && y_delta == -1 || x_delta == 2 && y_delta == -2 {
+                } else if x_delta == 1 && y_delta == -2
+                    || x_delta == 2 && y_delta == -1
+                    || x_delta == 2 && y_delta == -2
+                {
                     big_rope[i].x += 1;
                     big_rope[i].y -= 1;
-                } else if x_delta == -1 && y_delta == -2 || x_delta == -2 && y_delta == -1 || x_delta == -2 && y_delta == -2 {
+                } else if x_delta == -1 && y_delta == -2
+                    || x_delta == -2 && y_delta == -1
+                    || x_delta == -2 && y_delta == -2
+                {
                     big_rope[i].x -= 1;
                     big_rope[i].y -= 1;
                 } else if x_delta == 2 {
@@ -85,14 +92,13 @@ pub fn part_2(raw_input: String) -> String {
                 } else if y_delta == -2 {
                     big_rope[i].y -= 1;
                 }
-                let x_delta = big_rope[i-1].x - big_rope[i].x;
-                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                let x_delta = big_rope[i - 1].x - big_rope[i].x;
+                let y_delta = big_rope[i - 1].y - big_rope[i].y;
                 assert!(-1 <= x_delta);
                 assert!(x_delta <= 1);
                 assert!(-1 <= y_delta);
                 assert!(y_delta <= 1);
             }
-
 
             if !tail_covered.contains(big_rope.last().unwrap()) {
                 tail_covered.push(*big_rope.last().unwrap());
@@ -121,7 +127,6 @@ fn part_one(raw_input: String) -> i32 {
             }
             // visualise_visited(&tail_covered);
         }
-
     }
     tail_covered.len() as i32
 }
@@ -134,14 +139,9 @@ fn part_two(raw_input: String) -> i32 {
         let mut words = line.split_whitespace();
 
         let move_direction = parse_move(words.next().unwrap());
-        let move_number = words
-            .next()
-            .unwrap()
-            .parse::<i32>()
-            .unwrap();
+        let move_number = words.next().unwrap().parse::<i32>().unwrap();
 
         for i in 0..move_number {
-
             big_rope[0] = match move_direction {
                 Direction::Left => Coord::new_custom(big_rope[0].x - 1, big_rope[0].y),
                 Direction::Right => Coord::new_custom(big_rope[0].x + 1, big_rope[0].y),
@@ -152,24 +152,36 @@ fn part_two(raw_input: String) -> i32 {
 
             for i in 1..big_rope.len() {
                 // x stuff
-                let x_delta = big_rope[i-1].x - big_rope[i].x;
-                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                let x_delta = big_rope[i - 1].x - big_rope[i].x;
+                let y_delta = big_rope[i - 1].y - big_rope[i].y;
                 // dbg!(move_direction, move_number, i, &big_rope, x_delta, y_delta);
                 assert!(x_delta <= 2);
                 assert!(x_delta >= -2);
                 assert!(y_delta <= 2);
                 assert!(y_delta >= -2);
 
-                if x_delta == 1 && y_delta == 2 || x_delta == 2 && y_delta == 1 || x_delta == 2 && y_delta == 2 {
+                if x_delta == 1 && y_delta == 2
+                    || x_delta == 2 && y_delta == 1
+                    || x_delta == 2 && y_delta == 2
+                {
                     big_rope[i].x += 1;
                     big_rope[i].y += 1;
-                } else if x_delta == -1 && y_delta == 2 || x_delta == -2 && y_delta == 1 || x_delta == -2 && y_delta == 2 {
+                } else if x_delta == -1 && y_delta == 2
+                    || x_delta == -2 && y_delta == 1
+                    || x_delta == -2 && y_delta == 2
+                {
                     big_rope[i].x -= 1;
                     big_rope[i].y += 1;
-                } else if x_delta == 1 && y_delta == -2 || x_delta == 2 && y_delta == -1 || x_delta == 2 && y_delta == -2 {
+                } else if x_delta == 1 && y_delta == -2
+                    || x_delta == 2 && y_delta == -1
+                    || x_delta == 2 && y_delta == -2
+                {
                     big_rope[i].x += 1;
                     big_rope[i].y -= 1;
-                } else if x_delta == -1 && y_delta == -2 || x_delta == -2 && y_delta == -1 || x_delta == -2 && y_delta == -2 {
+                } else if x_delta == -1 && y_delta == -2
+                    || x_delta == -2 && y_delta == -1
+                    || x_delta == -2 && y_delta == -2
+                {
                     big_rope[i].x -= 1;
                     big_rope[i].y -= 1;
                 } else if x_delta == 2 {
@@ -181,14 +193,13 @@ fn part_two(raw_input: String) -> i32 {
                 } else if y_delta == -2 {
                     big_rope[i].y -= 1;
                 }
-                let x_delta = big_rope[i-1].x - big_rope[i].x;
-                let y_delta = big_rope[i-1].y - big_rope[i].y;
+                let x_delta = big_rope[i - 1].x - big_rope[i].x;
+                let y_delta = big_rope[i - 1].y - big_rope[i].y;
                 assert!(-1 <= x_delta);
                 assert!(x_delta <= 1);
                 assert!(-1 <= y_delta);
                 assert!(y_delta <= 1);
             }
-
 
             if !tail_covered.contains(big_rope.last().unwrap()) {
                 tail_covered.push(*big_rope.last().unwrap());
@@ -199,6 +210,7 @@ fn part_two(raw_input: String) -> i32 {
     tail_covered.len() as i32
 }
 
+#[allow(dead_code)]
 fn visualise_visited(input: &Vec<Coord>) {
     println!("Visualising input:");
     for y in 0..6 {
@@ -219,7 +231,7 @@ fn parse_move(input: &str) -> Direction {
         "R" => Direction::Right,
         "U" => Direction::Up,
         "D" => Direction::Down,
-        _ => panic!("Invalid direction")
+        _ => panic!("Invalid direction"),
     }
 }
 
@@ -230,7 +242,8 @@ fn move_rope(input: Rope, direction: Direction) -> Rope {
     match direction {
         Direction::Left => {
             new_head = Coord::new_custom(input.head.x - 1, input.head.y);
-            if (new_head.x - input.tail.x).abs() > 1 { // if tail needs to move
+            if (new_head.x - input.tail.x).abs() > 1 {
+                // if tail needs to move
                 new_tail = Coord::new_custom(new_head.x + 1, new_head.y);
             } else {
                 new_tail = input.tail;
@@ -238,7 +251,8 @@ fn move_rope(input: Rope, direction: Direction) -> Rope {
         }
         Direction::Right => {
             new_head = Coord::new_custom(input.head.x + 1, input.head.y);
-            if (new_head.x - input.tail.x).abs() > 1 { // if tail needs to move
+            if (new_head.x - input.tail.x).abs() > 1 {
+                // if tail needs to move
                 new_tail = Coord::new_custom(new_head.x - 1, new_head.y);
             } else {
                 new_tail = input.tail;
@@ -246,7 +260,8 @@ fn move_rope(input: Rope, direction: Direction) -> Rope {
         }
         Direction::Up => {
             new_head = Coord::new_custom(input.head.x, input.head.y + 1);
-            if (new_head.y - input.tail.y).abs() > 1 { // if tail needs to move
+            if (new_head.y - input.tail.y).abs() > 1 {
+                // if tail needs to move
                 new_tail = Coord::new_custom(new_head.x, new_head.y - 1);
             } else {
                 new_tail = input.tail;
@@ -254,14 +269,18 @@ fn move_rope(input: Rope, direction: Direction) -> Rope {
         }
         Direction::Down => {
             new_head = Coord::new_custom(input.head.x, input.head.y - 1);
-            if (new_head.y - input.tail.y).abs() > 1 { // if tail needs to move
+            if (new_head.y - input.tail.y).abs() > 1 {
+                // if tail needs to move
                 new_tail = Coord::new_custom(new_head.x, new_head.y + 1);
             } else {
                 new_tail = input.tail;
             }
         }
     }
-    Rope { head: new_head, tail: new_tail }
+    Rope {
+        head: new_head,
+        tail: new_tail,
+    }
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -281,10 +300,7 @@ struct Coord {
 impl Coord {
     /// Returns a new Coord at (0, 0)
     fn new() -> Coord {
-        Coord {
-            x: 0,
-            y: 0,
-        }
+        Coord { x: 0, y: 0 }
     }
 
     /// Returns a new Coord at (x, y)
@@ -317,27 +333,31 @@ mod test {
 
     #[test]
     fn day_nine_part_one() {
-        let input = String::from("R 4
+        let input = String::from(
+            "R 4
 U 4
 L 3
 D 1
 R 4
 D 1
 L 5
-R 2");
+R 2",
+        );
         assert_eq!(part_one(input), 13);
     }
 
     #[test]
     fn day_nine_part_two() {
-        let input = String::from("R 5
+        let input = String::from(
+            "R 5
 U 8
 L 8
 D 3
 R 17
 D 10
 L 25
-U 20");
+U 20",
+        );
         assert_eq!(part_two(input), 36);
     }
 
