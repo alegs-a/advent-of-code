@@ -1,4 +1,4 @@
-#[allow(warnings)]
+#![allow(warnings)]
 pub fn part_1(input: String) -> String {
     String::new()
 }

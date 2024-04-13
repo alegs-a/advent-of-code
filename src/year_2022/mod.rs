@@ -1,3 +1,4 @@
+#![allow(warnings)]
 use crate::day::Day;
 use crate::make_day;
 

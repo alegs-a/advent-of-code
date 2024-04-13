@@ -45,6 +45,7 @@ mod day_15;
 mod day_16;
 mod day_17;
 mod day_18;
+#[allow(warnings)]
 mod day_19;
 mod day_20;
 mod day_21;

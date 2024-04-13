@@ -1,3 +1,5 @@
+#![allow(warnings)]
+
 use std::collections::HashSet;
 
 pub fn part_1(input: String) -> String {
