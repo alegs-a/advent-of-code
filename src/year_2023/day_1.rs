@@ -30,10 +30,12 @@ pub fn part_2(input: String) -> String {
         let first_str = first_num(line.clone());
         let last_str = last_num(line.clone());
         if let Some(first_str) = first_str {
-            line = line.replace(&first_str, nums.get(first_str.as_str()).unwrap());
+            line.insert_str(line.find(&first_str).unwrap(), nums.get(first_str.as_str()).unwrap());
         }
         if let Some(last_str) = last_str {
-            line = line.replace(&last_str, nums.get(last_str.as_str()).unwrap());
+            let count = line.split(&last_str).count() - 1;
+            line = line.replacen(&last_str, "", count - 1);
+            line.insert_str(line.find(&last_str).unwrap() + last_str.len(), nums.get(last_str.as_str()).unwrap());
         }
         //         let replaced = line
         //             .replace("two", "2")
@@ -50,13 +52,12 @@ pub fn part_2(input: String) -> String {
             .trim_end_matches(char::is_alphabetic);
         let num =
             line.chars().next().unwrap().to_string() + &line.chars().last().unwrap().to_string();
-        //dbg!(&num);
         sum += str::parse::<i32>(&num).unwrap();
     }
     sum.to_string()
 }
 
-/// Returns the first number to be spelt out in the string, or None if there are no numbers
+/// Returns the first number that is spelt out in the string, or None if there are no numbers
 fn first_num(string: String) -> Option<String> {
     let mut nums = HashMap::new();
     nums.insert("one", "1");
@@ -128,5 +129,16 @@ zoneight234
 7pqrstsixteen"
             .to_string();
         assert_eq!(part_2(input), "281");
+    }
+
+    #[test]
+    fn test_part_two_2() {
+        let input = "twone
+sevenone
+four
+1twone3
+1twoone3
+oneighteight".to_string();
+        assert_eq!(part_2(input), "180");
     }
 }
