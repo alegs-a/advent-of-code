@@ -1,4 +1,4 @@
-//#![allow(warnings)]
+#![allow(warnings)]
 use itertools::Itertools;
 
 pub fn part_1(input: String) -> String {
