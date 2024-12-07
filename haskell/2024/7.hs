@@ -29,7 +29,7 @@ allWays (x:xs) = ((+x) <$> rest) ++ ((*x) <$> rest)
 -- make sure to reverse input!
 allWays2 [x, y] = [x + y, x * y, concat' y x]
 allWays2 (x:xs) = ((+x) <$> rest) ++ ((*x) <$> rest) ++ (flip concat' x <$> rest) -- flip is necessary because we have to evaluate backwards for haskell to be happy
-     where rest = allWays2 (xs)
+     where rest = allWays2 xs
 
 readInt :: String -> Integer
 readInt = read
