@@ -5,7 +5,8 @@ import Data.List
 
 inputPath = "../../input/2024/7.txt"
 
-parse contents = zip (readInt . takeWhile (/= ':') <$> lines contents) (map readInt . words . tail . dropWhile (/= ':') <$> lines contents)
+parse :: String -> [(Integer, [Integer])]
+parse contents = zip (readInt . takeWhile (/= ':') <$> lines contents) (map readInt . tail . words <$> lines contents)
 
 main = do
     file <- openFile inputPath ReadMode
